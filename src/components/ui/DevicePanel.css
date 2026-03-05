@@ -1,0 +1,66 @@
+.device-panel {
+  min-width: 320px;
+  pointer-events: auto;
+}
+
+.device-panel-card {
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.device-panel-card .ant-card-head {
+  background: rgba(16, 16, 36, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 16px;
+  min-height: auto;
+}
+
+.device-panel-card .ant-card-head-title {
+  padding: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.device-panel-card .ant-card-body {
+  padding: 16px;
+}
+
+.device-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.device-panel-desc .ant-descriptions-item-label {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
+
+.device-panel-desc .ant-descriptions-item-content {
+  color: #fff;
+  font-size: 13px;
+}
+
+.device-panel-thresholds {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.threshold-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.threshold-item span:last-child {
+  color: #fff;
+  font-weight: 500;
+}

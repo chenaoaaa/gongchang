@@ -1,0 +1,61 @@
+.toolbar-container {
+  position: absolute;
+  top: 130px;
+  right: 20px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.toolbar-container .ant-space {
+  pointer-events: auto;
+  background: rgba(26, 26, 46, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.toolbar-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.toolbar-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.toolbar-button.ant-btn-primary {
+  background: #1677ff;
+  border-color: #1677ff;
+  color: #fff;
+}
+
+.toolbar-button.ant-btn-primary:hover {
+  background: #4096ff;
+  border-color: #4096ff;
+}
+
+.toolbar-button.ant-btn-dangerous {
+  background: #ff4d4f;
+  border-color: #ff4d4f;
+  color: #fff;
+}
+
+.toolbar-button.ant-btn-dangerous:hover {
+  background: #ff7875;
+  border-color: #ff7875;
+}
+
+@media (max-width: 1200px) {
+  .toolbar-container {
+    top: 110px;
+    right: 10px;
+  }
+
+  .toolbar-container .ant-space {
+    flex-direction: column;
+  }
+}

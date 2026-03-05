@@ -1,68 +1,126 @@
+/**
+ * 全局样式配置
+ * 
+ * 功能:
+ * - 深色工业风主题
+ * - 响应式布局支持
+ * - Ant Design组件样式覆盖
+ * - 自定义滚动条样式
+ * 
+ * @author wb_chenao
+ * @date 2026-03-05
+ */
+
+/* ========== 全局重置 ========== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 统一盒模型 */
+}
+
+/* ========== 根元素配置 ========== */
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* 字体栈 - 优先使用系统字体提升性能 */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
+  
+  /* 深色主题配置 */
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #0a0a1a; /* 深色背景 */
+  
+  /* 字体渲染优化 */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* ========== Body配置 ========== */
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: hidden; /* 防止页面滚动 */
+  /* 深色渐变背景 - 工业风格 */
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* ========== React根容器 ========== */
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 3D场景占满全屏,不允许滚动 */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* ========== 自定义滚动条样式 ========== */
+
+::-webkit-scrollbar {
+  width: 8px;   /* 垂直滚动条宽度 */
+  height: 8px;  /* 水平滚动条高度 */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05); /* 滚动条轨道 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2); /* 滚动条滑块 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3); /* 滑块悬停效果 */
+}
+
+/* ========== Ant Design暗色主题覆盖 ========== */
+
+.ant-card {
+  background: rgba(26, 26, 46, 0.85); /* 半透明卡片背景 */
+  color: #fff;
+}
+
+.ant-drawer-content {
+  background: rgba(26, 26, 46, 0.95); /* 抽屉背景 */
+}
+
+.ant-list-item {
+  color: #fff;
+}
+
+.ant-typography {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ant-btn {
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+/* ========== 响应式提示 ========== */
+
+/**
+ * 小屏幕降级提示
+ * 当屏幕宽度小于1366px时显示警告条
+ */
+@media (max-width: 1366px) {
+  body::before {
+    content: '请使用更大的屏幕以获得最佳体验';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #faad14; /* Ant Design警告色 */
+    color: #000;
+    text-align: center;
+    padding: 8px;
+    z-index: 9999; /* 确保在最上层 */
+    font-size: 14px;
+    font-weight: 600;
   }
 }

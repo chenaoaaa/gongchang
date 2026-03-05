@@ -1,0 +1,96 @@
+.alert-panel-drawer .ant-drawer-header {
+  background: rgba(26, 26, 46, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alert-panel-drawer .ant-drawer-title {
+  color: #fff;
+}
+
+.alert-panel-drawer .ant-drawer-body {
+  background: rgba(26, 26, 46, 0.9);
+  padding: 16px;
+}
+
+.alert-panel-drawer .ant-drawer-close {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.alert-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
+
+.alert-item {
+  background: rgba(16, 16, 36, 0.6);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alert-item-content {
+  width: 100%;
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.alert-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.alert-type {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.alert-message {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+}
+
+.alert-value {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
+
+.alert-value strong {
+  color: #ff4d4f;
+  font-size: 14px;
+}
+
+.alert-time {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+}
+
+.alert-suggestion {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alert-suggestion .ant-typography {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  margin: 0;
+}
+
+.alert-suggestion .ant-typography-secondary {
+  color: rgba(255, 255, 255, 0.45);
+}

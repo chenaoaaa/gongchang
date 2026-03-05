@@ -1,0 +1,202 @@
+{
+  "devices": [
+    {
+      "id": "CNC-001",
+      "name": "数控机床A1",
+      "type": "cnc_machine",
+      "position": [10, 0, 5],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/cnc_machine.glb",
+      "status": "running",
+      "temperature": 45.2,
+      "runningHours": 156.5,
+      "dailyOutput": 342,
+      "supervisor": "张三",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "CNC-002",
+      "name": "数控机床A2",
+      "type": "cnc_machine",
+      "position": [20, 0, 5],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/cnc_machine.glb",
+      "status": "running",
+      "temperature": 48.5,
+      "runningHours": 142.3,
+      "dailyOutput": 328,
+      "supervisor": "李四",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "CNC-003",
+      "name": "数控机床B1",
+      "type": "cnc_machine",
+      "position": [30, 0, 5],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/cnc_machine.glb",
+      "status": "warning",
+      "temperature": 55.8,
+      "runningHours": 189.7,
+      "dailyOutput": 315,
+      "supervisor": "王五",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "ROBOT-001",
+      "name": "工业机器人R1",
+      "type": "robot_arm",
+      "position": [10, 0, 15],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/robot_arm.glb",
+      "status": "running",
+      "temperature": 42.1,
+      "runningHours": 123.4,
+      "dailyOutput": 456,
+      "supervisor": "赵六",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "ROBOT-002",
+      "name": "工业机器人R2",
+      "type": "robot_arm",
+      "position": [20, 0, 15],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/robot_arm.glb",
+      "status": "running",
+      "temperature": 43.5,
+      "runningHours": 134.2,
+      "dailyOutput": 478,
+      "supervisor": "孙七",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "CONV-001",
+      "name": "传送带C1",
+      "type": "conveyor",
+      "position": [15, 0, 25],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/conveyor.glb",
+      "status": "running",
+      "temperature": 35.2,
+      "runningHours": 98.5,
+      "dailyOutput": 1200,
+      "supervisor": "周八",
+      "thresholds": {
+        "tempWarning": 45,
+        "tempError": 55,
+        "maintenanceHours": 180
+      }
+    },
+    {
+      "id": "CONV-002",
+      "name": "传送带C2",
+      "type": "conveyor",
+      "position": [25, 0, 25],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/conveyor.glb",
+      "status": "running",
+      "temperature": 36.8,
+      "runningHours": 102.3,
+      "dailyOutput": 1180,
+      "supervisor": "吴九",
+      "thresholds": {
+        "tempWarning": 45,
+        "tempError": 55,
+        "maintenanceHours": 180
+      }
+    },
+    {
+      "id": "AGV-001",
+      "name": "AGV小车A1",
+      "type": "agv",
+      "position": [5, 0, 20],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/agv.glb",
+      "status": "running",
+      "temperature": 38.4,
+      "runningHours": 87.2,
+      "dailyOutput": 45,
+      "supervisor": "郑十",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 150
+      }
+    },
+    {
+      "id": "AGV-002",
+      "name": "AGV小车A2",
+      "type": "agv",
+      "position": [35, 0, 20],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/agv.glb",
+      "status": "idle",
+      "temperature": 32.1,
+      "runningHours": 76.5,
+      "dailyOutput": 38,
+      "supervisor": "钱十一",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 150
+      }
+    },
+    {
+      "id": "WELD-001",
+      "name": "焊接工作站W1",
+      "type": "welding_station",
+      "position": [12, 0, 35],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/welding.glb",
+      "status": "running",
+      "temperature": 52.3,
+      "runningHours": 167.8,
+      "dailyOutput": 245,
+      "supervisor": "陈十二",
+      "thresholds": {
+        "tempWarning": 55,
+        "tempError": 65,
+        "maintenanceHours": 200
+      }
+    },
+    {
+      "id": "INSP-001",
+      "name": "质检设备Q1",
+      "type": "inspection",
+      "position": [28, 0, 35],
+      "rotation": [0, 0, 0],
+      "modelPath": "/models/inspection.glb",
+      "status": "running",
+      "temperature": 40.5,
+      "runningHours": 145.3,
+      "dailyOutput": 567,
+      "supervisor": "林十三",
+      "thresholds": {
+        "tempWarning": 50,
+        "tempError": 60,
+        "maintenanceHours": 200
+      }
+    }
+  ]
+}

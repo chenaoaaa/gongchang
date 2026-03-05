@@ -1,0 +1,72 @@
+{
+  "temperature": {
+    "warning": {
+      "threshold": 50,
+      "level": "warning",
+      "message": "设备温度接近安全阈值",
+      "color": "#f39c12",
+      "actions": ["监控温度变化", "准备降温措施"]
+    },
+    "error": {
+      "threshold": 60,
+      "level": "error",
+      "message": "设备温度超过安全阈值",
+      "color": "#e74c3c",
+      "actions": ["立即检查冷却系统", "必要时停机检修"]
+    }
+  },
+  "runningHours": {
+    "maintenance": {
+      "threshold": 200,
+      "level": "warning",
+      "message": "设备运行时长已达维护周期",
+      "color": "#f39c12",
+      "actions": ["安排设备保养", "检查关键部件磨损情况"]
+    }
+  },
+  "dashboard": {
+    "orderCompletionRate": {
+      "threshold": 85,
+      "operator": "less",
+      "level": "warning",
+      "message": "订单完成率低于目标值",
+      "color": "#e74c3c"
+    },
+    "oee": {
+      "threshold": 70,
+      "operator": "less",
+      "level": "warning",
+      "message": "设备综合效率低于目标值",
+      "color": "#e74c3c"
+    },
+    "alertCount": {
+      "threshold": 0,
+      "operator": "greater",
+      "level": "error",
+      "message": "存在未处理告警",
+      "color": "#e74c3c"
+    }
+  },
+  "alertLevels": {
+    "info": {
+      "color": "#3498db",
+      "priority": 1,
+      "sound": false
+    },
+    "warning": {
+      "color": "#f39c12",
+      "priority": 2,
+      "sound": false
+    },
+    "error": {
+      "color": "#e74c3c",
+      "priority": 3,
+      "sound": true
+    },
+    "critical": {
+      "color": "#c0392b",
+      "priority": 4,
+      "sound": true
+    }
+  }
+}

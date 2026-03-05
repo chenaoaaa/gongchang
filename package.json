@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.1.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/rapier": "^2.2.0",
     "@types/three": "^0.183.1",
+    "add": "^2.0.6",
     "antd": "^6.3.1",
+    "pnpm": "^10.30.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "three": "^0.183.2",

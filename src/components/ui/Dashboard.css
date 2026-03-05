@@ -1,0 +1,68 @@
+.dashboard-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.dashboard-card {
+  pointer-events: auto;
+  background: rgba(26, 26, 46, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.dashboard-card .ant-card-body {
+  padding: 16px;
+}
+
+.dashboard-card .ant-statistic-title {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.dashboard-card .ant-statistic-content {
+  font-size: 20px;
+}
+
+.dashboard-card .ant-statistic-content-value {
+  font-weight: 600;
+}
+
+/* 闪烁动画 */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.blink .ant-statistic-content-value {
+  animation: blink 1s infinite;
+}
+
+/* 响应式调整 */
+@media (max-width: 1600px) {
+  .dashboard-container {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard-card .ant-statistic-title {
+    font-size: 11px;
+  }
+
+  .dashboard-card .ant-statistic-content {
+    font-size: 16px;
+  }
+}
