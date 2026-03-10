@@ -27,9 +27,7 @@ const Dashboard = () => {
               value={data.dailyOutput}
               suffix="件"
               prefix={<RocketOutlined />}
-              styles={{
-                value: { color: '#3f8600' }
-              }}
+              styles={{ content: { color: '#3f8600' } ,title: { color: '#3f8600' } }}
             />
           </Card>
         </Col>
@@ -42,7 +40,8 @@ const Dashboard = () => {
               suffix="%"
               prefix={<CheckCircleOutlined />}
               styles={{
-                value: { color: isOrderRateLow ? '#cf1322' : '#3f8600' }
+                content: { color: isOrderRateLow ? '#cf1322' : '#3f8600' },
+                title: { color: isOrderRateLow ? '#cf1322' : '#3f8600' },
               }}
               className={isOrderRateLow ? 'blink' : ''}
             />
@@ -57,7 +56,8 @@ const Dashboard = () => {
               suffix="%"
               prefix={<DashboardOutlined />}
               styles={{
-                value: { color: isOeeLow ? '#cf1322' : '#3f8600' }
+                content: { color: isOrderRateLow ? '#cf1322' : '#3f8600' },
+                title: { color: isOrderRateLow ? '#cf1322' : '#3f8600' },
               }}
               className={isOeeLow ? 'blink' : ''}
             />
@@ -72,7 +72,7 @@ const Dashboard = () => {
               suffix="kWh"
               precision={1}
               prefix={<ThunderboltOutlined />}
-              styles={{ value: { color: '#1677ff' } }}
+              styles={{ content: { color: '#1677ff' } ,title: { color: '#1677ff' } }}
             />
           </Card>
         </Col>
@@ -84,7 +84,8 @@ const Dashboard = () => {
               value={data.alertCount}
               prefix={<WarningOutlined />}
               styles={{
-                value: { color: hasAlerts ? '#cf1322' : '#666' }
+                content: { color: hasAlerts ? '#cf1322' : '#666' },
+                title: { color: hasAlerts ? '#cf1322' : '#666' },
               }}
               className={hasAlerts ? 'blink' : ''}
             />

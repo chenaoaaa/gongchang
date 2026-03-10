@@ -1,0 +1,72 @@
+/**
+ * 视角切换面板样式
+ */
+.view-switcher {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  background: rgba(26, 26, 46, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 200px;
+  max-width: 250px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.view-switcher-header {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-switcher-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.view-button {
+  text-align: left;
+  height: auto;
+  padding: 8px 12px;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.view-button:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 2px 8px rgba(64, 169, 255, 0.3);
+}
+
+.view-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.view-button.active:hover {
+  background: linear-gradient(135deg, #7b8ff0 0%, #8a5bb5 100%);
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .view-switcher {
+    top: 80px;
+    right: 10px;
+    min-width: 160px;
+    padding: 12px;
+  }
+
+  .view-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

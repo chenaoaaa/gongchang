@@ -1,12 +1,13 @@
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CameraController from './CameraController';
 import Environment from './Environment';
 import Factory from './Factory';
 import Device from './Device';
 import HeatMap from './HeatMap';
+import Player from './Player';
 import { useDeviceStore } from '../../store/deviceStore';
-import { useTimeStore } from '../../store/timeStore';
+import { useCameraStore } from '../../store/cameraStore';
 import sceneConfig from '../../config/scene.json';
 
 interface SceneProps {
@@ -15,6 +16,7 @@ interface SceneProps {
 
 const Scene = ({ showHeatMap }: SceneProps) => {
   const { devices, selectedDeviceId, selectDevice } = useDeviceStore();
+  const { currentViewId } = useCameraStore();
   const { camera } = sceneConfig;
 
   // 点击背景关闭设备面板
@@ -23,6 +25,9 @@ const Scene = ({ showHeatMap }: SceneProps) => {
       selectDevice(null);
     }
   };
+
+  // 判断是否在预设视角模式（如果是，禁用人物相机跟随）
+  const isPlayerCameraEnabled = currentViewId === 'overview';
 
   return (
     <Canvas
@@ -36,8 +41,8 @@ const Scene = ({ showHeatMap }: SceneProps) => {
       onClick={handleBackgroundClick}
       style={{ background: '#0a0a1a' }}
     >
-      {/* 相机控制 */}
-      <CameraController />
+      {/* 相机控制（仅在非人物模式下启用） */}
+      {!isPlayerCameraEnabled && <CameraController />}
 
       {/* 环境光照 */}
       <Environment />
@@ -57,6 +62,13 @@ const Scene = ({ showHeatMap }: SceneProps) => {
 
       {/* 热力图 */}
       <HeatMap visible={showHeatMap} />
+
+      {/* 可控制的人物角色 */}
+      <Player 
+        initialPosition={[0, 0, 0]}
+        speed={0.15}
+        enableCameraFollow={isPlayerCameraEnabled}
+      />
     </Canvas>
   );
 };

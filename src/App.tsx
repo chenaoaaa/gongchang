@@ -6,9 +6,10 @@
  * - 管理设备数据自动更新(每5秒刷新)
  * - 处理键盘快捷键交互
  * - 实现告警检测和历史数据回溯
+ * - 支持相机视角切换
  * 
  * @author wb_chenao
- * @date 2026-03-05
+ * @date 2026-03-06
  */
 import { useEffect, useState, useCallback } from 'react';
 import { message } from 'antd';
@@ -17,6 +18,8 @@ import Dashboard from './components/ui/Dashboard';
 import TimeSlider from './components/ui/TimeSlider';
 import Toolbar from './components/ui/Toolbar';
 import AlertPanel from './components/ui/AlertPanel';
+import ViewSwitcher from './components/ui/ViewSwitcher';
+import PlayerControls from './components/ui/PlayerControls';
 import { useDeviceStore } from './store/deviceStore';
 import { useDashboardStore } from './store/dashboardStore';
 import { useAlertStore } from './store/alertStore';
@@ -192,7 +195,7 @@ function App() {
   // ========== 渲染UI ==========
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      {/* 3D场景容器: 工厂建筑+设备+热力图 */}
+      {/* 3D场景容器: 工厂建筑+设备+热力图+人物 */}
       <Scene showHeatMap={showHeatMap} />
 
       {/* 顶部数据看板: 5项关键指标 */}
@@ -205,6 +208,12 @@ function App() {
         onToggleAlertPanel={() => setShowAlertPanel((prev) => !prev)}
         onResetCamera={handleResetCamera}
       />
+
+      {/* 右侧视角切换面板 */}
+      <ViewSwitcher />
+
+      {/* 左下角人物控制说明 */}
+      <PlayerControls />
 
       {/* 底部时间滑块: 24小时历史回溯+播放功能 */}
       <TimeSlider />
