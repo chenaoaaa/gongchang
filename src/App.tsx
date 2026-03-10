@@ -196,21 +196,21 @@ function App() {
       <Scene showHeatMap={showHeatMap} />
 
       {/* 顶部数据看板: 5项关键指标 */}
-      <Dashboard />
+      {/* <Dashboard /> */}
 
       {/* 右上角工具栏: 暂停/重置/热力图/告警按钮 */}
-      <Toolbar
+      {/* <Toolbar
         showHeatMap={showHeatMap}
         onToggleHeatMap={() => setShowHeatMap((prev) => !prev)}
         onToggleAlertPanel={() => setShowAlertPanel((prev) => !prev)}
         onResetCamera={handleResetCamera}
-      />
+      /> */}
 
       {/* 底部时间滑块: 24小时历史回溯+播放功能 */}
-      <TimeSlider />
+      {/* <TimeSlider /> */}
 
       {/* 右侧抽屉: 告警列表面板 */}
-      <AlertPanel visible={showAlertPanel} onClose={() => setShowAlertPanel(false)} />
+      {/* <AlertPanel visible={showAlertPanel} onClose={() => setShowAlertPanel(false)} /> */}
     </div>
   );
 }

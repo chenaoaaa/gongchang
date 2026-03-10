@@ -1,72 +1,68 @@
 {
   "camera": {
-    "initialPosition": [80, 60, 80],
-    "target": [20, 0, 20],
+    "initialPosition": [0, 190, 0],
+    "target": [0, 0, 0],
     "fov": 60,
     "near": 0.1,
     "far": 1000,
     "minDistance": 20,
-    "maxDistance": 200,
-    "minPolarAngle": 0.17,
+    "maxDistance": 400,
+    "minPolarAngle": 0,
     "maxPolarAngle": 1.4
   },
   "lights": {
     "ambient": {
-      "intensity": 0.5,
+      "intensity": 1.2,
       "color": "#ffffff"
     },
     "directional": {
-      "position": [50, 100, 50],
-      "intensity": 1.5,
+      "position": [50, 150, 50],
+      "intensity": 3.5,
       "color": "#ffffff",
       "castShadow": true
     },
     "hemisphere": {
       "skyColor": "#87CEEB",
-      "groundColor": "#8B7355",
-      "intensity": 0.3
+      "groundColor": "#C8B89A",
+      "intensity": 1.0
     }
   },
   "ground": {
     "size": [200, 200],
-    "color": "#2d3436",
+    "color": "#b3b1b1",
     "receiveShadow": true
   },
   "buildings": [
     {
-      "id": "factory-1",
-      "name": "主厂房",
-      "type": "factory",
-      "position": [20, 5, 20],
-      "size": [40, 10, 30],
-      "color": "#34495e",
+      "id": "T1",
+      "name": "T1",
+      "position": [70, 5, -50],
+      "size": [40, 10, 50],
+      "color": "red",
       "rotation": [0, 0, 0]
     },
     {
-      "id": "factory-2",
-      "name": "副厂房",
-      "type": "factory",
+      "id": "T2",
+      "name": "T2",
       "position": [70, 5, 20],
       "size": [30, 10, 25],
-      "color": "#2c3e50",
+      "color": "orange",
       "rotation": [0, 0, 0]
     },
     {
-      "id": "warehouse",
-      "name": "仓库",
-      "type": "warehouse",
+      "id": "T3",
+      "name": "T3",
       "position": [20, 4, 60],
       "size": [30, 8, 20],
-      "color": "#7f8c8d",
+      "color": "yellow",
       "rotation": [0, 0, 0]
     },
     {
-      "id": "office",
-      "name": "办公楼",
-      "type": "office",
+      "id": "T4",
+      "name": "T4",
       "position": [70, 8, 60],
       "size": [20, 16, 15],
-      "color": "#95a5a6",
+      "color": "green",
       "rotation": [0, 0, 0]
     }
   ],

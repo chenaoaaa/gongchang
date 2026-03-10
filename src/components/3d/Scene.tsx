@@ -34,7 +34,7 @@ const Scene = ({ showHeatMap }: SceneProps) => {
         far: camera.far,
       }}
       onClick={handleBackgroundClick}
-      style={{ background: '#0a0a1a' }}
+      style={{ background: 'linear-gradient(to bottom, #87CEEB 0%, #B0E2FF 60%, #E8F4FD 100%)' }}
     >
       {/* 相机控制 */}
       <CameraController />
