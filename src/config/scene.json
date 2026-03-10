@@ -44,33 +44,76 @@
     {
       "id": "T2",
       "name": "T2",
-      "position": [70, 5, 20],
-      "size": [30, 10, 25],
+      "position": [30, 5, -60],
+      "size": [10, 10, 25],
       "color": "orange",
       "rotation": [0, 0, 0]
     },
     {
       "id": "T3",
       "name": "T3",
-      "position": [20, 4, 60],
-      "size": [30, 8, 20],
+      "position": [-0, 5, -50],
+      "size": [20, 8, 50],
       "color": "yellow",
       "rotation": [0, 0, 0]
     },
     {
       "id": "T4",
       "name": "T4",
-      "position": [70, 8, 60],
-      "size": [20, 16, 15],
-      "color": "green",
+      "position": [-35, 5, -50],
+      "size": [20, 8, 50],
+      "color": "yellow",
+      "rotation": [0, 0, 0]
+    },
+    {
+      "id": "shitang",
+      "name": "食堂",
+      "position": [-70, 5, -50],
+      "size": [20, 8, 50],
+      "color": "yellow",
+      "rotation": [0, 0, 0]
+    },
+    {
+      "id": "T5",
+      "name": "T5",
+      "position": [-70, 5, 60],
+      "size": [20, 8, 50],
+      "color": "yellow",
+      "rotation": [0, 0, 0]
+    },
+    {
+      "id": "T6",
+      "name": "T6",
+      "position": [-40, 5, 60],
+      "size": [10, 8, 50],
+      "color": "yellow",
+      "rotation": [0, 0, 0]
+    },
+    {
+      "id": "T7",
+      "name": "T7",
+      "position": [-10, 5, 60],
+      "size": [20, 8, 50],
+      "color": "yellow",
+      "rotation": [0, 0, 0]
+    },
+    {
+      "id": "T8",
+      "name": "T8",
+      "position": [20, 5, 60],
+      "size": [20, 8, 50],
+      "color": "yellow",
       "rotation": [0, 0, 0]
     }
   ],
+  "park": {
+    "id": "park-1",
+    "name": "小公园",
+    "position": [70, 0, 50],
+    "size": [40, 10, 50]
+  },
   "environment": {
     "trees": [
-      { "position": [-10, 0, 10], "scale": 1.2 },
-      { "position": [-10, 0, 30], "scale": 1.0 },
-      { "position": [-10, 0, 50], "scale": 1.1 },
       { "position": [100, 0, 10], "scale": 1.3 },
       { "position": [100, 0, 30], "scale": 0.9 },
       { "position": [100, 0, 50], "scale": 1.0 }
@@ -79,15 +122,15 @@
       {
         "id": "road-1",
         "type": "horizontal",
-        "position": [45, 0.05, -10],
-        "size": [100, 0.1, 8],
+        "position": [0, 0.05, -10],
+        "size": [200, 0.1, 8],
         "color": "#34495e"
       },
       {
         "id": "road-2",
         "type": "vertical",
-        "position": [-5, 0.05, 40],
-        "size": [8, 0.1, 80],
+        "position": [45, 0.05, 45],
+        "size": [8, 0.1, 110],
         "color": "#34495e"
       }
     ]

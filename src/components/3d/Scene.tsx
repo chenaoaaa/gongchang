@@ -46,14 +46,14 @@ const Scene = ({ showHeatMap }: SceneProps) => {
       <Factory />
 
       {/* 设备 */}
-      {devices.map((device) => (
+      {/* {devices.map((device) => (
         <Device
           key={device.id}
           data={device}
           onClick={(id) => selectDevice(id === selectedDeviceId ? null : id)}
           isSelected={selectedDeviceId === device.id}
         />
-      ))}
+      ))} */}
 
       {/* 热力图 */}
       <HeatMap visible={showHeatMap} />

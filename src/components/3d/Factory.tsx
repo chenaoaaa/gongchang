@@ -1,9 +1,10 @@
 import { Text } from '@react-three/drei';
 import sceneConfig from '../../config/scene.json';
 import CompassLabels from './CompassLabels';
+import Park from './Park';
 
 const Factory = () => {
-  const { buildings, ground, environment } = sceneConfig;
+  const { buildings, ground, environment, park } = sceneConfig;
 
   return (
     <group>
@@ -87,6 +88,9 @@ const Factory = () => {
 
       {/* 东南西北方向指示牌 */}
       <CompassLabels />
+
+      {/* 小公园 */}
+      <Park position={park.position as [number, number, number]} />
     </group>
   );
 };
