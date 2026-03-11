@@ -1,12 +1,10 @@
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
 import CameraController from './CameraController';
 import Environment from './Environment';
 import Factory from './Factory';
-import Device from './Device';
 import HeatMap from './HeatMap';
+import Character from './Character';
 import { useDeviceStore } from '../../store/deviceStore';
-import { useTimeStore } from '../../store/timeStore';
 import sceneConfig from '../../config/scene.json';
 
 interface SceneProps {
@@ -14,7 +12,7 @@ interface SceneProps {
 }
 
 const Scene = ({ showHeatMap }: SceneProps) => {
-  const { devices, selectedDeviceId, selectDevice } = useDeviceStore();
+  const { selectedDeviceId, selectDevice } = useDeviceStore();
   const { camera } = sceneConfig;
 
   // 点击背景关闭设备面板
@@ -44,6 +42,9 @@ const Scene = ({ showHeatMap }: SceneProps) => {
 
       {/* 工厂建筑和环境 */}
       <Factory />
+
+      {/* 人物角色 */}
+      <Character />
 
       {/* 设备 */}
       {/* {devices.map((device) => (

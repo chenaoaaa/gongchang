@@ -21,6 +21,7 @@ import { useDeviceStore } from './store/deviceStore';
 import { useDashboardStore } from './store/dashboardStore';
 import { useAlertStore } from './store/alertStore';
 import { useTimeStore } from './store/timeStore';
+import { useCharacterStore } from './store/characterStore';
 import {
   generateDashboardData,
   generateHistoricalSnapshots,
@@ -46,6 +47,8 @@ function App() {
   const { alerts, addAlert, clearAlerts } = useAlertStore();
   /** 时间store: 管理历史数据回溯 */
   const { setHistoricalData, setCurrentTime } = useTimeStore();
+  /** 人物store: 管理人物位置和跟随模式 */
+  const { followMode, toggleFollowMode } = useCharacterStore();
 
   // ========== Effect Hook: WebGL能力检测 ==========
   /**
@@ -211,6 +214,58 @@ function App() {
 
       {/* 右侧抽屉: 告警列表面板 */}
       {/* <AlertPanel visible={showAlertPanel} onClose={() => setShowAlertPanel(false)} /> */}
+
+      {/* 人物跟随视角切换按钮 */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 24,
+          right: 24,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          zIndex: 100,
+        }}
+      >
+        <button
+          onClick={toggleFollowMode}
+          style={{
+            padding: '12px 20px',
+            borderRadius: 12,
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 14,
+            fontWeight: 600,
+            color: '#fff',
+            background: followMode
+              ? 'linear-gradient(135deg, #e74c3c, #c0392b)'
+              : 'linear-gradient(135deg, #2980b9, #3498db)',
+            boxShadow: followMode
+              ? '0 4px 15px rgba(231, 76, 60, 0.4)'
+              : '0 4px 15px rgba(52, 152, 219, 0.4)',
+            transition: 'all 0.3s ease',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          {followMode ? '🔓 退出跟随' : '🚶 跟随人物'}
+        </button>
+
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 10,
+            background: 'rgba(0,0,0,0.65)',
+            backdropFilter: 'blur(10px)',
+            color: '#fff',
+            fontSize: 12,
+            lineHeight: 1.6,
+          }}
+        >
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>🎮 操作说明</div>
+          <div>W/↑ 前进 &nbsp; S/↓ 后退</div>
+          <div>A/← 左转 &nbsp; D/→ 右转</div>
+        </div>
+      </div>
     </div>
   );
 }
