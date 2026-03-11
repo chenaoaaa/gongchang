@@ -19,73 +19,6 @@ function seededRandom(seed: number) {
 }
 
 // ══════════════════════════════════════════════════
-//  树木
-// ══════════════════════════════════════════════════
-interface TreeProps {
-  position: [number, number, number];
-  scale?: number;
-  seed?: number;
-}
-
-const Tree = ({ position, scale = 1, seed = 1 }: TreeProps) => {
-  const rand = useMemo(() => seededRandom(seed * 137 + 17), [seed]);
-
-  const trunkH = 2.8 + rand() * 1.5;
-  const trunkR0 = 0.18 + rand() * 0.12;
-  const trunkR1 = 0.10 + rand() * 0.06;
-  const trunkColor = useMemo(
-    () => new THREE.Color(0.28 + rand() * 0.08, 0.18 + rand() * 0.06, 0.08 + rand() * 0.04),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [seed],
-  );
-
-  const spheres = useMemo(() => {
-    const r = seededRandom(seed * 53 + 7);
-    return Array.from({ length: 10 }, () => {
-      const angle = r() * Math.PI * 2;
-      const radius = 0.6 + r() * 1.0;
-      const height = trunkH + 0.5 + r() * 2.2;
-      const size = 0.8 + r() * 1.2;
-      const g = 0.25 + r() * 0.35;
-      return {
-        angle, radius, height, size,
-        color: new THREE.Color(0.05 + r() * 0.1, g, 0.05 + r() * 0.08),
-      };
-    });
-  }, [seed, trunkH]);
-
-  return (
-    <group position={position} scale={scale}>
-      {/* 树干 */}
-      <mesh position={[0, trunkH / 2, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[trunkR1, trunkR0, trunkH, 10, 1]} />
-        <meshStandardMaterial color={trunkColor} roughness={0.95} />
-      </mesh>
-      {/* 主树冠 */}
-      <mesh position={[0, trunkH + 1.4, 0]} castShadow>
-        <sphereGeometry args={[1.8, 8, 6]} />
-        <meshStandardMaterial color="#2e7d32" roughness={0.9} />
-      </mesh>
-      {/* 外围子球 */}
-      {spheres.map((s, i) => (
-        <mesh
-          key={i}
-          position={[
-            Math.cos(s.angle) * s.radius,
-            s.height,
-            Math.sin(s.angle) * s.radius,
-          ]}
-          castShadow
-        >
-          <sphereGeometry args={[s.size, 7, 5]} />
-          <meshStandardMaterial color={s.color} roughness={0.88} />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-// ══════════════════════════════════════════════════
 //  石桥
 // ══════════════════════════════════════════════════
 const Bridge = ({
@@ -270,16 +203,6 @@ const ParkGate = ({ z }: { z: number }) => (
 );
 
 // ══════════════════════════════════════════════════
-//  草地装饰小花（静态色块）
-// ══════════════════════════════════════════════════
-const flowers: [number, number, number][] = [
-  [-12, 0.12, -18], [12, 0.12, -18], [-14, 0.12, 10],
-  [14, 0.12, 15],   [-5, 0.12, 20],  [8, 0.12, -15],
-  [-3, 0.12, -20],  [5, 0.12, 18],
-];
-const flowerColors = ['#ffeb3b', '#ff80ab', '#ce93d8', '#80deea'];
-
-// ══════════════════════════════════════════════════
 //  主公园组件
 // ══════════════════════════════════════════════════
 interface ParkProps {
@@ -289,7 +212,6 @@ interface ParkProps {
 const Park = ({ position = [0, 0, 0] }: ParkProps) => {
   const PARK_W = 40;
   const PARK_D = 50;
-  const POOL_W = 14;
   const POOL_D = 18;
 
   return (
@@ -322,21 +244,6 @@ const Park = ({ position = [0, 0, 0] }: ParkProps) => {
         width={3.2}
       />
 
-      {/* ── 树木 ── */}
-      <Tree position={[-16, 0, -20]} scale={1.0}  seed={1} />
-      <Tree position={[15,  0, -21]} scale={0.88} seed={2} />
-      <Tree position={[-15, 0,  20]} scale={1.1}  seed={3} />
-      <Tree position={[16,  0,  19]} scale={0.92} seed={4} />
-      <Tree position={[-17, 0,  -2]} scale={1.15} seed={5} />
-      <Tree position={[17,  0,   1]} scale={0.95} seed={6} />
-      <Tree position={[-10, 0, -14]} scale={0.78} seed={7} />
-      <Tree position={[10,  0, -13]} scale={0.82} seed={8} />
-      <Tree position={[-10, 0,  13]} scale={0.72} seed={9} />
-      <Tree position={[10,  0,  14]} scale={0.88} seed={10} />
-      <Tree position={[1,   0, -22]} scale={0.92} seed={11} />
-      <Tree position={[-2,  0,  22]} scale={1.05} seed={12} />
-      <Tree position={[-7,  0,  22]} scale={0.85} seed={13} />
-      <Tree position={[7,   0, -22]} scale={0.9}  seed={14} />
 
       {/* ── 石凳 ── */}
       <Bench position={[-8,  0, -10]} rotation={[0,  Math.PI * 0.35, 0]} />
