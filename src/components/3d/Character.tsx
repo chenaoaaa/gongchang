@@ -4,7 +4,6 @@ import * as THREE from 'three';
 import { useCharacterStore } from '../../store/characterStore';
 
 const MOVE_SPEED = 0.15;
-const ROTATE_SPEED = 0.04;
 
 /** 记录当前按键状态 */
 const keys: Record<string, boolean> = {};
@@ -45,15 +44,7 @@ const Character = () => {
 
     let moved = false;
 
-    // 旋转控制：A / D 键
-    if (keys['a'] || keys['arrowleft']) {
-      rotRef.current += ROTATE_SPEED;
-    }
-    if (keys['d'] || keys['arrowright']) {
-      rotRef.current -= ROTATE_SPEED;
-    }
-
-    // 前进/后退：W / S 键
+    // 前进/后退：W / S 键（沿当前朝向）
     if (keys['w'] || keys['arrowup']) {
       posRef.current = [
         posRef.current[0] - Math.sin(rotRef.current) * MOVE_SPEED,
@@ -71,9 +62,29 @@ const Character = () => {
       moved = true;
     }
 
+    // 左右横移：A / D 键（垂直于当前朝向的侧向平移）
+    // 侧向向量 = 朝向向量旋转 90°：(-cos, 0, sin)
+    if (keys['a'] || keys['arrowleft']) {
+      posRef.current = [
+        posRef.current[0] - Math.cos(rotRef.current) * MOVE_SPEED,
+        posRef.current[1],
+        posRef.current[2] + Math.sin(rotRef.current) * MOVE_SPEED,
+      ];
+      moved = true;
+    }
+    if (keys['d'] || keys['arrowright']) {
+      posRef.current = [
+        posRef.current[0] + Math.cos(rotRef.current) * MOVE_SPEED,
+        posRef.current[1],
+        posRef.current[2] - Math.sin(rotRef.current) * MOVE_SPEED,
+      ];
+      moved = true;
+    }
+
     // 更新 3D 对象位置和旋转
+    // 模型面部建模在 +Z 方向，加 Math.PI 翻转使面部朝行进方向（-Z）
     groupRef.current.position.set(...posRef.current);
-    groupRef.current.rotation.y = rotRef.current;
+    groupRef.current.rotation.y = rotRef.current + Math.PI;
 
     // 走路动画（腿和手臂摆动）
     if (moved) {

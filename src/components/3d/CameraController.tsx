@@ -12,47 +12,55 @@ const CameraController = () => {
   const { camera } = sceneConfig;
   const { camera: threeCamera } = useThree();
   const controlsRef = useRef<OrbitControlsImpl>(null);
-  const { position, rotation, followMode } = useCharacterStore();
+  const { position, followMode } = useCharacterStore();
 
-  // 跟随相机的目标插值（平滑过渡）
+  // 跟随模式下角色目标位置的平滑插值
   const smoothTarget = useRef(new THREE.Vector3(...position));
-  const smoothCamPos = useRef(new THREE.Vector3(...(sceneConfig.camera.initialPosition as [number, number, number])));
+
+  // 记录跟随模式激活时相机与目标的偏移向量（保留用户调整的视角）
+  const followInitialized = useRef(false);
 
   useFrame(() => {
-    if (!followMode) return;
+    if (!followMode || !controlsRef.current) return;
 
     const charPos = new THREE.Vector3(...position);
 
-    // 相机偏移：人物背后偏上方（第三人称视角）
-    const offsetDistance = 18;
-    const offsetHeight = 12;
-    const camX = charPos.x + Math.sin(rotation) * offsetDistance;
-    const camZ = charPos.z + Math.cos(rotation) * offsetDistance;
-    const camY = charPos.y + offsetHeight;
-    const targetCamPos = new THREE.Vector3(camX, camY, camZ);
+    // 平滑插值目标到人物位置
+    smoothTarget.current.lerp(charPos, 0.12);
 
-    // 平滑插值
-    smoothCamPos.current.lerp(targetCamPos, 0.08);
-    smoothTarget.current.lerp(charPos, 0.1);
+    // 计算当前相机到旧 target 的偏移（保持视角方向不变）
+    const oldTarget = controlsRef.current.target.clone() as THREE.Vector3;
+    const camOffset = threeCamera.position.clone().sub(oldTarget);
 
-    threeCamera.position.copy(smoothCamPos.current);
-
-    if (controlsRef.current) {
-      // 更新 OrbitControls 的 target（视线焦点对准人物）
-      controlsRef.current.target.copy(smoothTarget.current);
-      controlsRef.current.update();
-    }
+    // 更新 target 到人物，相机跟着平移（保持相同偏移，即用户的视角方向不变）
+    const newTarget = smoothTarget.current.clone();
+    threeCamera.position.copy(newTarget.clone().add(camOffset));
+    controlsRef.current.target.copy(newTarget);
+    controlsRef.current.update();
   });
 
-  // 切换模式时重置平滑值
+  // 切换到跟随模式时，将相机重置到人物背后的默认视角
   useEffect(() => {
-    if (!followMode) {
-      smoothTarget.current.set(0, 0, 0);
-    } else {
+    if (followMode) {
       const [px, py, pz] = position;
       smoothTarget.current.set(px, py, pz);
+
+      if (!followInitialized.current && controlsRef.current) {
+        // 初次进入跟随模式：将相机放到人物背后偏上方
+        const offsetDistance = 18;
+        const offsetHeight = 12;
+        threeCamera.position.set(
+          px,
+          py + offsetHeight,
+          pz + offsetDistance
+        );
+        controlsRef.current.target.set(px, py, pz);
+        controlsRef.current.update();
+        followInitialized.current = true;
+      }
+    } else {
+      followInitialized.current = false;
     }
-    // position 是每帧都变化的，只需在 followMode 改变时初始化
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followMode]);
 
@@ -66,8 +74,8 @@ const CameraController = () => {
       minPolarAngle={CAMERA_LIMITS.minPolarAngle}
       maxPolarAngle={CAMERA_LIMITS.maxPolarAngle}
       target={camera.target as [number, number, number]}
-      // 跟随模式下禁用手动交互，防止冲突
-      enabled={!followMode}
+      // 跟随模式下也允许鼠标交互（上下左右环顾四周）
+      enabled={true}
     />
   );
 };
