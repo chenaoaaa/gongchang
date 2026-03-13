@@ -22,6 +22,7 @@ import { useDashboardStore } from './store/dashboardStore';
 import { useAlertStore } from './store/alertStore';
 import { useTimeStore } from './store/timeStore';
 import { useCharacterStore } from './store/characterStore';
+import { useCleaningRobotStore } from './store/cleaningRobotStore';
 import {
   generateDashboardData,
   generateHistoricalSnapshots,
@@ -49,6 +50,16 @@ function App() {
   const { setHistoricalData, setCurrentTime } = useTimeStore();
   /** 人物store: 管理人物位置和跟随模式 */
   const { followMode, toggleFollowMode } = useCharacterStore();
+  /** 机器人store: 管理扫地机器人 */
+  const robotMode = useCleaningRobotStore((s) => s.mode);
+  const robotPath = useCleaningRobotStore((s) => s.path);
+  const robotSpeed = useCleaningRobotStore((s) => s.speed);
+  const robotShowPath = useCleaningRobotStore((s) => s.showPath);
+  const setRobotMode = useCleaningRobotStore((s) => s.setMode);
+  const setRobotSpeed = useCleaningRobotStore((s) => s.setSpeed);
+  const clearRobotPath = useCleaningRobotStore((s) => s.clearPath);
+  const removeLastPoint = useCleaningRobotStore((s) => s.removeLastPoint);
+  const toggleRobotShowPath = useCleaningRobotStore((s) => s.toggleShowPath);
 
   // ========== Effect Hook: WebGL能力检测 ==========
   /**
@@ -265,6 +276,156 @@ function App() {
           <div>W/↑ 前进 &nbsp; S/↓ 后退</div>
           <div>A/← 左转 &nbsp; D/→ 右转</div>
         </div>
+      </div>
+
+      {/* 扫地机器人控制面板（左下角） */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 24,
+          left: 24,
+          zIndex: 100,
+          background: 'rgba(0,0,0,0.72)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: 14,
+          padding: '16px 18px',
+          color: '#fff',
+          minWidth: 220,
+        }}
+      >
+        <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+          🤖 扫地机器人
+          <span style={{
+            fontSize: 11,
+            padding: '2px 8px',
+            borderRadius: 20,
+            background: robotMode === 'running' ? '#2ecc71' : robotMode === 'editing' ? '#f39c12' : '#7f8c8d',
+            color: '#fff',
+            marginLeft: 'auto',
+          }}>
+            {robotMode === 'running' ? '运行中' : robotMode === 'editing' ? '编辑路径' : robotMode === 'paused' ? '已暂停' : '待命'}
+          </span>
+        </div>
+
+        {/* 控制按钮区 */}
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+          {/* 开始/暂停 */}
+          {robotMode !== 'editing' && (
+            <button
+              onClick={() => {
+                if (robotMode === 'running') setRobotMode('paused');
+                else if (robotPath.length >= 2) setRobotMode('running');
+              }}
+              disabled={robotPath.length < 2}
+              style={{
+                padding: '8px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
+                fontSize: 13, fontWeight: 600, color: '#fff',
+                background: robotMode === 'running' ? '#e67e22' : '#2ecc71',
+                opacity: robotPath.length < 2 ? 0.4 : 1,
+              }}
+            >
+              {robotMode === 'running' ? '⏸ 暂停' : '▶ 启动'}
+            </button>
+          )}
+
+          {/* 编辑路径 */}
+          <button
+            onClick={() => {
+              if (robotMode === 'editing') {
+                setRobotMode('idle');
+              } else {
+                setRobotMode('editing');
+              }
+            }}
+            style={{
+              padding: '8px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              fontSize: 13, fontWeight: 600, color: '#fff',
+              background: robotMode === 'editing' ? '#e74c3c' : '#3498db',
+            }}
+          >
+            {robotMode === 'editing' ? '✓ 完成' : '✏️ 编辑路径'}
+          </button>
+
+          {/* 停止回原点 */}
+          {(robotMode === 'running' || robotMode === 'paused') && (
+            <button
+              onClick={() => {
+                setRobotMode('idle');
+                useCleaningRobotStore.getState().setProgress(0, 0);
+              }}
+              style={{
+                padding: '8px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
+                fontSize: 13, fontWeight: 600, color: '#fff', background: '#e74c3c',
+              }}
+            >
+              ⏹ 停止
+            </button>
+          )}
+        </div>
+
+        {/* 编辑模式工具 */}
+        {robotMode === 'editing' && (
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+            <button
+              onClick={removeLastPoint}
+              disabled={robotPath.length === 0}
+              style={{
+                padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)',
+                background: 'transparent', color: '#fff', cursor: 'pointer', fontSize: 12,
+                opacity: robotPath.length === 0 ? 0.3 : 1,
+              }}
+            >
+              ↩ 撤销
+            </button>
+            <button
+              onClick={clearRobotPath}
+              style={{
+                padding: '6px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)',
+                background: 'transparent', color: '#ff6b6b', cursor: 'pointer', fontSize: 12,
+              }}
+            >
+              🗑 清空
+            </button>
+            <span style={{ fontSize: 11, color: '#aaa', alignSelf: 'center', marginLeft: 'auto' }}>
+              {robotPath.length} 个点
+            </span>
+          </div>
+        )}
+
+        {/* 速度调节 */}
+        <div style={{ marginBottom: 8 }}>
+          <div style={{ fontSize: 12, color: '#aaa', marginBottom: 4 }}>
+            速度: {robotSpeed} m/s
+          </div>
+          <input
+            type="range"
+            min={2}
+            max={20}
+            step={1}
+            value={robotSpeed}
+            onChange={(e) => setRobotSpeed(Number(e.target.value))}
+            style={{ width: '100%', accentColor: '#4a90d9' }}
+          />
+        </div>
+
+        {/* 显示开关 */}
+        <div style={{ display: 'flex', gap: 14, fontSize: 12, color: '#ccc' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer' }}>
+            <input type="checkbox" checked={robotShowPath} onChange={toggleRobotShowPath} />
+            路径线
+          </label>
+        </div>
+
+        {/* 编辑模式提示 */}
+        {robotMode === 'editing' && (
+          <div style={{
+            marginTop: 10, padding: '8px 10px', borderRadius: 8,
+            background: 'rgba(74, 144, 217, 0.15)', border: '1px solid rgba(74, 144, 217, 0.3)',
+            fontSize: 11, color: '#8ab4e8', lineHeight: 1.5,
+          }}>
+            💡 点击地面添加路径点，机器人将沿路径行驶
+          </div>
+        )}
       </div>
     </div>
   );

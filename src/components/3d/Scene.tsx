@@ -4,6 +4,8 @@ import Environment from './Environment';
 import Factory from './Factory';
 import HeatMap from './HeatMap';
 import Character from './Character';
+import CleaningRobot from './CleaningRobot';
+import RobotPathEditor from './RobotPathEditor';
 import { useDeviceStore } from '../../store/deviceStore';
 import sceneConfig from '../../config/scene.json';
 
@@ -45,6 +47,12 @@ const Scene = ({ showHeatMap }: SceneProps) => {
 
       {/* 人物角色 */}
       <Character />
+
+      {/* 扫地机器人 */}
+      <CleaningRobot />
+
+      {/* 路径编辑器（编辑模式下激活） */}
+      <RobotPathEditor />
 
       {/* 设备 */}
       {/* {devices.map((device) => (
