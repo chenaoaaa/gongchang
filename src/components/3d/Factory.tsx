@@ -1,7 +1,22 @@
-import { Text } from '@react-three/drei';
 import sceneConfig from '../../config/scene.json';
 import CompassLabels from './CompassLabels';
 import Park from './Park';
+import Building from './Building';
+
+// ─── 墙色映射：将 scene.json 中的颜色关键字映射为真实色值 ───
+const WALL_COLOR_MAP: Record<string, string> = {
+  red:    '#C94B1F',   // T1 — 橙红（参考图片）
+  orange: '#D0622A',   // T2 — 深橙
+  yellow: '#C9821F',   // T3~T8, 食堂 — 深黄棕
+  green:  '#4A7C59',
+  blue:   '#2C5F8A',
+  white:  '#E8E4DE',
+  gray:   '#8A8A8A',
+};
+
+function resolveColor(color: string): string {
+  return WALL_COLOR_MAP[color] ?? color;
+}
 
 const Factory = () => {
   const { buildings, ground, environment, park } = sceneConfig;
@@ -18,39 +33,23 @@ const Factory = () => {
         <meshStandardMaterial color={ground.color} />
       </mesh>
 
-      {/* 建筑物 + 顶部名称标签 */}
+      {/* 建筑物（四面立面还原） */}
       {buildings.map((building) => {
-        const [bx, by, bz] = building.position as [number, number, number];
-        const [, bh] = building.size as [number, number, number];
-        const topY = by + bh / 2 + 0.5; // 顶面往上偏移一点
-        return (
-          <group key={building.id}>
-            {/* 建筑主体 */}
-            <mesh
-              position={building.position as [number, number, number]}
-              rotation={building.rotation as [number, number, number]}
-              castShadow
-              receiveShadow
-            >
-              <boxGeometry args={building.size as [number, number, number]} />
-              <meshStandardMaterial color={building.color} />
-            </mesh>
+        const [w, h, d] = building.size as [number, number, number];
+        // 根据宽度和高度决定窗户行数
+        const rows = h >= 10 ? 2 : 1;
 
-            {/* 顶部名称标签（平躺在屋顶上） */}
-            <Text
-              position={[bx, topY, bz]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              fontSize={4}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="middle"
-              fontWeight="bold"
-              outlineWidth={0.3}
-              outlineColor="#000000"
-            >
-              {building.name}
-            </Text>
-          </group>
+        return (
+          <Building
+            key={building.id}
+            id={building.id}
+            name={building.name}
+            position={building.position as [number, number, number]}
+            size={[w, h, d]}
+            wallColor={resolveColor(building.color)}
+            windowRows={rows}
+            showLabel
+          />
         );
       })}
 
@@ -66,7 +65,7 @@ const Factory = () => {
         </mesh>
       ))}
 
-      {/* 简化的树木（使用圆柱体+球体表示） */}
+      {/* 树木 */}
       {environment.trees.map((tree, index) => (
         <group
           key={`tree-${index}`}
